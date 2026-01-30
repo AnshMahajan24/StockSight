@@ -7,4 +7,4 @@ from rest_framework.permissions import AllowAny
 class registerview(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = userserializer
-    permission_classes = [AllowAny]   # this view can be excessed by anyone
+    permission_classes = [AllowAny]   # this view can be excessed by anyone 

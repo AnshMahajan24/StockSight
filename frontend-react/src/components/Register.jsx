@@ -10,7 +10,7 @@ const Register = () => {
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({})
   const [success, setSuccess] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false) 
 
   const handleRegistration = async (e) => {
     e.preventDefault()
