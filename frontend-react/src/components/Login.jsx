@@ -24,7 +24,7 @@ const Login = () => {
       console.log('login successful')
       setIsLoggedIn(true);
       // Redirect to dashboard or home page
-      window.location.href = '/' 
+      window.location.href = '/dashboard'; 
     } catch (error) {
       console.error('Login error:', error.response?.data || error.message)
       setError(error.response?.data?.detail || 'Invalid credentials. Please try again.')
