@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
+import axiosInstance from '../axiosinstance'
 import { AuthContext } from '../AuthProvider'
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -18,7 +19,7 @@ const Login = () => {
     const userinfo = {username , password}
     console.log(userinfo)
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/v1/token/' , userinfo)
+      const response = await axiosInstance.post('/token/' , userinfo)
       localStorage.setItem('access_token' , response.data.access)
       localStorage.setItem('refresh_token' , response.data.refresh)
       console.log('login successful')
