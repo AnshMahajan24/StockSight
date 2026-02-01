@@ -21,9 +21,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CORS_ALLOWED_ORIGINS = [
-#     'https://render-deploy-tutorial-reactjs-code.onrender.com'
-# ]
+CORS_ALLOWED_ORIGINS = [
+    'https://stocksight-gp5w.onrender.com '
+]
 
 # Media files configuration
 MEDIA_URL = '/media/'
