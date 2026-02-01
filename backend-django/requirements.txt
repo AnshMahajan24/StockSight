@@ -1,0 +1,37 @@
+# Django Core
+Django==5.2.5
+djangorestframework==3.16.1
+django-cors-headers==4.7.0
+djangorestframework-simplejwt==5.5.1
+
+# Database & ORM
+asgiref==3.9.1
+sqlparse==0.5.3
+
+# Environment & Configuration
+python-decouple==3.8
+
+# Deep Learning & ML
+tensorflow==2.20.0
+keras==3.13.2
+scikit-learn==1.8.0
+
+# Data Processing
+pandas==3.0.0
+numpy==2.4.1
+
+# Data Visualization
+matplotlib==3.10.8
+
+# Financial Data
+yfinance==1.1.0
+
+# Authentication & Security
+PyJWT==2.10.1
+
+# HTTP & Networking
+requests==2.32.5
+
+# Utilities
+python-dateutil==2.9.0.post0
+Pillow==12.1.0
