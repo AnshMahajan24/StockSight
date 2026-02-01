@@ -25,15 +25,9 @@ MIDDLEWARE = [
 #     'https://render-deploy-tutorial-reactjs-code.onrender.com'
 # ]
 
-STORAGES = {
-    "default":{
-        "BACKEND" : "django.core.files.storage.FileSystemStorage",
-    },
-    "staticfiles": {
-        "BACKEND" : "whitenoise.storage.CompressedStaticFilesStorage",
-    },
-
-}
+# Media files configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DATABASES = {
     'default': dj_database_url.config(
