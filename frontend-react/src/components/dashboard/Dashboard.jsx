@@ -14,6 +14,7 @@ const Dashboard = () => {
     const [mse, setMSE] = useState()
     const [rmse, setRMSE] = useState()
     const [r2, setR2] = useState()
+    const [futurePredictions, setFuturePredictions] = useState()
 
     useEffect(()=>{
         const fetchProtectedData = async () =>{
@@ -29,11 +30,20 @@ const Dashboard = () => {
     const handleSubmit = async (e) =>{
         e.preventDefault();
         setLoading(true)
+        setError('')
         try{
             const response = await axiosInstance.post('/predict/', {
                 ticker: ticker
             });
             console.log(response.data);
+            
+            // Check if there's an error in the response data
+            if(response.data.error){
+                setError(response.data.error)
+                setLoading(false)
+                return
+            }
+            
             const backendRoot = import.meta.env.VITE_BACKEND_ROOT
             const plotUrl = `${backendRoot}${response.data.plot_img}`
             const ma100Url = `${backendRoot}${response.data.plot_100_dma}`
@@ -46,12 +56,11 @@ const Dashboard = () => {
             setMSE(response.data.mse)
             setRMSE(response.data.rmse)
             setR2(response.data.r2)
-            // Set plots
-            if(response.data.error){
-                setError(response.data.error)
-            }
+            setFuturePredictions(response.data.future_predictions)
         }catch(error){
             console.error('There was an error making the API request', error)
+            const errorMessage = error.response?.data?.error || error.response?.data?.detail || 'Invalid ticker or an error occurred. Please try again.'
+            setError(errorMessage)
         }finally{
             setLoading(false);
         }
@@ -96,6 +105,29 @@ const Dashboard = () => {
                 <div className="p-3">
                     {prediction && (
                         <img src={prediction} style={{ maxWidth: '100%' }} />
+                    )}
+                </div>
+
+                <div className="text-light p-3">
+                    <h4>Future Price Predictions (Next 3 Months)</h4>
+                    {futurePredictions && (
+                        <div className="row">
+                            {futurePredictions.map((pred) => (
+                                <div key={pred.month} className="col-md-4 mb-3">
+                                    <div className="card bg-dark border-info">
+                                        <div className="card-body">
+                                            <h5 className="card-title text-info">Month {pred.month}</h5>
+                                            <p className="card-text">
+                                                <strong>Date:</strong> {pred.date}
+                                            </p>
+                                            <p className="card-text">
+                                                <strong>Predicted Price:</strong> ${pred.predicted_price.toFixed(2)}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     )}
                 </div>
 
