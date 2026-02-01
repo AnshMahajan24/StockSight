@@ -22,7 +22,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'https://stocksight-gp5w.onrender.com '
+    'https://stocksight-e622.onrender.com',
+    os.environ.get('FRONTEND_URL', 'https://localhost:5173'),
 ]
 
 # Media files configuration
