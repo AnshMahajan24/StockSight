@@ -44,7 +44,10 @@ const Dashboard = () => {
                 return
             }
             
-            const backendRoot = import.meta.env.VITE_BACKEND_ROOT
+            const isDevelopment = import.meta.env.MODE === 'development'
+            const devRoot = import.meta.env.VITE_BACKEND_ROOT ?? 'http://127.0.0.1:8000'
+            const prodRoot = import.meta.env.VITE_BACKEND_ROOT_DEPLOY ?? 'https://stocksight-gp5w.onrender.com'
+            const backendRoot = isDevelopment ? devRoot : prodRoot
             const plotUrl = `${backendRoot}${response.data.plot_img}`
             const ma100Url = `${backendRoot}${response.data.plot_100_dma}`
             const ma200Url = `${backendRoot}${response.data.plot_200_dma}`

@@ -1,7 +1,9 @@
 import axios from "axios";
 
-
-const baseURL = import.meta.env.VITE_BACKEND_BASE_API
+const isDevelopment = import.meta.env.MODE === 'development';
+const devBase = import.meta.env.VITE_BACKEND_BASE_API ?? 'http://127.0.0.1:8000/api/v1';
+const prodBase = import.meta.env.VITE_BACKEND_BASE_API_DEPLOY ?? 'https://stocksight-gp5w.onrender.com/api/v1';
+const baseURL = isDevelopment ? devBase : prodBase;
 const axiosInstance = axios.create({
     baseURL: baseURL,
     headers: {
