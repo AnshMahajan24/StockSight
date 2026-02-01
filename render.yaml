@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: stocksight-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "cd backend-django && bash build.sh"
+    startCommand: "cd backend-django && python -m gunicorn -c gunicorn.conf.py StockSight.asgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13
