@@ -44,18 +44,11 @@ const Dashboard = () => {
                 return
             }
             
-            const isDevelopment = import.meta.env.MODE === 'development'
-            const devRoot = import.meta.env.VITE_BACKEND_ROOT ?? 'http://127.0.0.1:8000'
-            const prodRoot = import.meta.env.VITE_BACKEND_ROOT_DEPLOY ?? 'https://stocksight-gp5w.onrender.com'
-            const backendRoot = isDevelopment ? devRoot : prodRoot
-            const plotUrl = `${backendRoot}${response.data.plot_img}`
-            const ma100Url = `${backendRoot}${response.data.plot_100_dma}`
-            const ma200Url = `${backendRoot}${response.data.plot_200_dma}`
-            const predictionUrl = `${backendRoot}${response.data.plot_prediction}`
-            setPlot(plotUrl)
-            setMA100(ma100Url)
-            setMA200(ma200Url)
-            setPrediction(predictionUrl)
+            // Images are now base64-encoded data URLs from the backend
+            setPlot(response.data.plot_img)
+            setMA100(response.data.plot_100_dma)
+            setMA200(response.data.plot_200_dma)
+            setPrediction(response.data.plot_prediction)
             setMSE(response.data.mse)
             setRMSE(response.data.rmse)
             setR2(response.data.r2)
