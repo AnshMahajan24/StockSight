@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <>
         <nav className='navbar container pt-3 pb-3 align-items-start'>
-            <Link className='navbar-brand text-light' to="/">Stock Prediction Portal</Link>
+            <Button text='Home' class="btn-outline-info" url="/" />
 
             <div>
               {isLoggedIn ? (
@@ -30,7 +30,7 @@ const Header = () => {
                 <>
                 <Button text='Login' class="btn-outline-info" url="/login" />
                 &nbsp;
-                <Button text='Register' class="btn-info" url="/register" />
+                <Button text='Register' class="btn-outline-info" url="/register" />
                 </>
               )}
                 

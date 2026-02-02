@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import axiosInstance from '../../axiosinstance'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 
 const Dashboard = () => {
     const [ticker, setTicker] = useState('')
@@ -64,17 +64,36 @@ const Dashboard = () => {
 
   return (
     <div className='container'>
+                {loading && (
+                    <div className="ds-overlay" role="status" aria-live="polite">
+                        <div className="ds-spinner"> 
+                            <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+                            <div className="mt-2">Generating prediction — this can take 20–90 seconds</div>
+                        </div>
+                    </div>
+                )}
         <div className="row">
-            <div className="col-md-6 mx-auto">
+            <div className="col-md-7 mx-auto">
+              <div className="ds-form-section">
+                <h5 className="text-light mb-3">Stock Prediction</h5>
                 <form onSubmit={handleSubmit}>
-                    <input type="text" className='form-control' placeholder='Enter Stock Ticker' 
-                    onChange={(e) => setTicker(e.target.value)} required
-                    />
-                    <small>{error && <div className='text-danger'>{error}</div>}</small>
-                    <button type='submit' className='btn btn-info mt-3'>
-                        {loading ? <span><FontAwesomeIcon icon={faSpinner} spin /> Please wait...</span>: 'See Prediction'}
-                    </button>
+                    <div className="input-group">
+                        <input 
+                            type="text" 
+                            className='form-control' 
+                            placeholder='Enter stock ticker (e.g., AAPL)' 
+                            onChange={(e) => setTicker(e.target.value)} 
+                            disabled={loading}
+                            required
+                        />
+                        <button type='submit' className='btn btn-primary' disabled={loading}>
+                            {loading ? <><FontAwesomeIcon icon={faSpinner} spin className="me-1"/> Wait</> : 'Predict'}
+                        </button>
+                    </div>
+                    {error && <small className='text-danger d-block mt-2'>{error}</small>}
+                    <small className='text-muted d-block mt-2'>Don't know a ticker? <a href="https://stockanalysis.com/stocks/" target="_blank" rel="noopener noreferrer" className="text-info">Browse stocks <FontAwesomeIcon icon={faExternalLinkAlt} size="xs" className="ms-1"/></a></small>
                 </form>
+              </div>
             </div>
 
             {/* Print prediction plots */}
@@ -104,8 +123,8 @@ const Dashboard = () => {
                     )}
                 </div>
 
-                <div className="text-light p-3">
-                    <h4>Future Price Predictions (Next 3 Months)</h4>
+                <div className="text-light p-3 mt-3">
+                    <h5>3-Month Forecast</h5>
                     {futurePredictions && (
                         <div className="row">
                             {futurePredictions.map((pred) => (
@@ -128,10 +147,21 @@ const Dashboard = () => {
                 </div>
 
                 <div className="text-light p-3">
-                    <h4>Model Evalulation</h4>
-                    <p>Mean Squared Error (MSE): {mse}</p>
-                    <p>Root Mean Squared Error (RMSE): {rmse}</p>
-                    <p>R-Squared: {r2}</p>
+                    <h5>Model Metrics</h5>
+                    <div className="row">
+                      <div className="col-md-4 mb-2">
+                        <small className="text-muted">MSE</small>
+                        <p className="mb-0 text-info">{mse?.toFixed ? mse.toFixed(2) : mse}</p>
+                      </div>
+                      <div className="col-md-4 mb-2">
+                        <small className="text-muted">RMSE</small>
+                        <p className="mb-0 text-info">{rmse?.toFixed ? rmse.toFixed(2) : rmse}</p>
+                      </div>
+                      <div className="col-md-4 mb-2">
+                        <small className="text-muted">R²</small>
+                        <p className="mb-0 text-info">{r2?.toFixed ? r2.toFixed(2) : r2}</p>
+                      </div>
+                    </div>
                 </div>
 
             </div>
@@ -141,6 +171,31 @@ const Dashboard = () => {
         </div>
     </div>
   )
+}
+
+// Inline styles for overlay
+const styles = `
+.ds-overlay { position: fixed; inset: 0; background: rgba(2,6,23,0.6); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+.ds-spinner { background: #0b1220; color: #fff; padding: 1rem 1.25rem; border-radius: .5rem; text-align: center; min-width: 260px; }
+.ds-form-section { background: rgba(15,23,36,0.5); border-radius: .5rem; padding: 1rem; margin-bottom: 1rem; }
+.input-group .btn-primary { background: #0d6efd; border-color: #0d6efd; }
+@media (max-width: 576px) { .ds-spinner { min-width: 200px; } }
+`
+
+// append styles to document head at runtime (simple, isolated)
+if (typeof document !== 'undefined' && !document.getElementById('ds-overlay-styles')) {
+  const s = document.createElement('style')
+  s.id = 'ds-overlay-styles'
+  s.innerHTML = styles
+  document.head.appendChild(s)
+}
+
+// append styles to document head at runtime (simple, isolated)
+if (typeof document !== 'undefined' && !document.getElementById('ds-overlay-styles')) {
+    const s = document.createElement('style')
+    s.id = 'ds-overlay-styles'
+    s.innerHTML = styles
+    document.head.appendChild(s)
 }
 
 export default Dashboard
