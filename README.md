@@ -25,7 +25,7 @@ StockSight is a full-stack ML application that predicts stock prices using LSTM 
 
 ## 🔗 Live Demo
 
-`https://stocksight-e622.onrender.com/`
+https://stocksight-e622.onrender.com/
 
 ---
 
@@ -118,5 +118,25 @@ Predicted Price
 3. Predict next day
 4. Update sequence (remove oldest, add prediction)
 5. Unscale predictions to original price range
+
+## 📸 Project Portal – Screenshots
+   ### 1. 🏠 Home Page
+
+  <img src="images/Screenshot 2026-02-04 at 5.40.33 PM.png" width="50%" height="50%">
+
+   ### 2. 📝 User Registration
+
+  <img src="images/Screenshot 2026-02-04 at 5.47.34 PM.png" width="50%" height="50%">
+
+   ### 3. 📊 Dashboard
+
+  <img src="images/Screenshot 2026-02-04 at 5.41.45 PM.png" width="50%" height="50%">
+
+   ### 4. 🤖 Predictions
+
+  <img src="images/Screenshot 2026-02-04 at 5.42.09 PM.png" width="50%" height="50%">
+
+  <em>⚠️ Screenshots shown are limited demo views of the portal.</em>
+
 
 Made with ❤️ by [Ansh Mahajan](https://github.com/AnshMahajan24)
